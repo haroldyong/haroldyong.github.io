@@ -19,3 +19,7 @@ Only for life.
 ### go which
 
 Death, everyone will go `*_*`
+
+### Java content
+
+  <a href="./java/index.html">java content index page</a>
