@@ -8,7 +8,7 @@
       <a href="./springboot-dubbo-apollo.html">springboot + dubbo + apollo</a>
       </b></p>
       <p><b>
-      <a href="./practise-job.html">springboot + dubbo + apollo</a>
+      <a href="./practise-job.html">practise in job</a>
       </b></p>
     </td>
   </tr>
