@@ -10,6 +10,9 @@
       <p><b>
       <a href="./practise-job.html">practise in job</a>
       </b></p>
+      <p><b>
+      <a href="./spring-boot-rocketmq.html">spring boot with rocketmq</a>
+      </b></p>
     </td>
   </tr>
 </table>
