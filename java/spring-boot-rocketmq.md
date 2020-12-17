@@ -23,3 +23,8 @@
 https://blog.csdn.net/xiaojun081004/article/details/104954802/
 
 https://github.com/apache/rocketmq-spring/pull/188
+
+
+另外在spring boot rocket消费类中不要去捕获异常
+
+https://blog.csdn.net/xinhuashudiao/article/details/106014635

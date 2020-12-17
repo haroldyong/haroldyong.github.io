@@ -31,3 +31,93 @@ a. 每个系统发送消息时，尽量在所有业务处理完成后发出。�
 b. 每个系统在发送消息和处理消息时，最好在注释中带上下游逻辑
 
 c. 凡是设计到写的接口都要添加频次控制,后端并发控制
+
+
+### spring @Configuration 顺序
+
+1.  业务场景：
+    我在启动类中加载hot data（配置文件、经常使用到的数据） 到缓存中，所以定义一个DataStartHelper
+    的service，因为是需要使用到DAO层和Cache，而DAO层和Cache是需要提前加载到spring中的，所以报如下错误
+
+    `
+    ERROR o.s.b.d.LoggingFailureAnalysisReporter -
+
+   ***************************
+   APPLICATION FAILED TO START
+   ***************************
+
+   Description:
+
+   The dependencies of some of the beans in the application context form a cycle: dataStartHelper defined in file [xxxxx/DataStartHelper.class]
+┌─────┐
+|  config defined in class path resource [xxxx/JetCacheConfig.class]
+↑     ↓
+|  springConfigProvider
+    `
+
+代码：
+
+
+@Component
+Class DataStartHelper implements InitializingBean {
+{
+  ConfigDAO configDao;
+
+  public void init()
+  {
+    configDao.doSomething();
+  }
+  @Override
+   public void afterPropertiesSet() throws Exception {
+       init();
+   }
+ }
+
+@Repository
+class ConfigDAO
+{
+
+    @CreateCache(name = " ", cacheType = CacheType.BOTH)
+     private Cache<String, List<>> recordCache;
+
+     doSomething()
+     {
+       recordCache.xxxx
+     }
+}
+
+
+现象：
+
+当把   @CreateCache 对象去除掉后，一点问题都没有。
+但只要加上jetcache相关代码，必出现上述的问题。
+
+
+分析原因：
+
+应该是DAO中的dosomething使用到 recordCache的方法，而这个时候 recordCache是依赖于外部的 cacheConfig来生成的。所以这里会出现异常。从而报上述的错误。
+
+
+解决方法：
+
+DataStartHelper为标准的service组建
+
+
+@DependsOn({"springConfigProvider"})
+@AutoConfigureAfter(JetCacheConfig.class)
+@Configuration
+public class DataStartConfig implements InitializingBean {
+
+    @Autowired
+    DataStartHelper dataStartHelper;
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        dataStartHelper.init();
+
+    }
+
+}
+
+可以解决。最重要的是 @DependsOn({"springConfigProvider"})
