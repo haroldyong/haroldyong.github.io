@@ -121,3 +121,11 @@ public class DataStartConfig implements InitializingBean {
 }
 
 可以解决。最重要的是 @DependsOn({"springConfigProvider"})
+
+
+当使用一个开源框架时，一定要对其中参数了解清楚，比如jetcache设置缓存过期时间有 expireAfterWrite
+expireAfterAccess 这些，有StatIntevalMins 这些参数还是需要了解清楚后才可以使用。否则会造成线上故障
+
+业务场景：
+
+外部搜索引擎洗数据,one by one 读取订单系统，然后调用订单系统的rpc去获取全部业务模型数据，这时订单系统是要去缓存这些数据的，这时会对缓存系统造成很大的内存压力，如果订单系统没有设置缓存过期时间，那么整个内存会打爆
