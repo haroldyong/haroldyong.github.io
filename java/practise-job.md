@@ -128,4 +128,36 @@ expireAfterAccess 这些，有StatIntevalMins 这些参数还是需要了解清�
 
 业务场景：
 
-外部搜索引擎洗数据,one by one 读取订单系统，然后调用订单系统的rpc去获取全部业务模型数据，这时订单系统是要去缓存这些数据的，这时会对缓存系统造成很大的内存压力，如果订单系统没有设置缓存过期时间，那么整个内存会打爆
+外部搜索引擎洗数据,one by one 读取订单系统，然后调用订单系统的rpc去获取全部业务模型数据，这时订单系统是要去缓存这些数据的，这时会对缓存系统造成很大的内存压力，如果订单系统没有设置缓存过期时间，那么整个内存会打爆。
+
+
+
+
+
+
+## 2.Mysql 数据库时间索引问题
+
+我有一张表具体字段就不列了。
+
+CREATE TABLE `order_main` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '缺省字段,物理主键',
+  .
+  .
+  .
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '缺省字段,创建时间',
+  `gmt_modify` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '缺省字段,修改时间',
+    PRIMARY KEY (`id`),
+    KEY `idx_gmt_modify` (`gmt_modify`)
+) ENGINE=InnoDB AUTO_INCREMENT=229872 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
+
+
+然后有个查询语句
+
+SELECT * FROM order_main use index(idx_gmt_modify)
+  WHERE    gmt_modify >= "2020-12-12 16:59:00"
+        AND   gmt_modify <= "2020-12-21 12:59:00" AND grd_delete = 0
+        ORDER BY gmt_create DESC LIMIT 192650,50 ;
+
+
+这时它的explain如下
+![avatar]./1608530378748.jpg
