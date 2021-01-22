@@ -177,3 +177,13 @@ Failed to create the Java Virtual Machine.
 解决步骤：
 
 1. 首先将本地的jdk8 版本升级到 最新的 1.8.0_271
+2. 设置 java_home
+3. 修改eclipse的配置
+to /Applications/Eclipse.app/Contents/Info.plist
+
+<string>-vm</string><string>/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/bin/java</string>
+
+
+参考帖子
+
+https://stackoverflow.com/questions/62647625/not-able-to-run-eclipse-on-macos-big-sur
