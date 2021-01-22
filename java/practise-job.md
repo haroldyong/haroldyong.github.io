@@ -181,9 +181,17 @@ Failed to create the Java Virtual Machine.
 3. 修改eclipse的配置
 to /Applications/Eclipse.app/Contents/Info.plist
 
-<string>-vm</string><string>/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/bin/java</string>
+<string>-vm</string><string>/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/bin/java</string>
 
 
 参考帖子
 
 https://stackoverflow.com/questions/62647625/not-able-to-run-eclipse-on-macos-big-sur
+
+
+
+## 4.分层概念
+
+一般应用分 web  / server  /manager - adapter || dao
+
+我们抛出异常建议在server中，下层一定要尽量捕捉到所有的异常，保证上层调用有值
