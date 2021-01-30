@@ -23,3 +23,17 @@ a、maven update
 b、clean cache & restart
 c、mvn clean install
 d、build
+
+
+2. idea 打开一个项目 ，该项目中使用了  mapstruct和 lombok。但发现自动生成的mapper类无法找到属性
+只是new targetClass 。然后 return targetClass。
+很神奇，后来到 mapstruct的文档
+"Lombok - requires having the Lombok classes in a separate module. See for more information
+rzwitserloot/lombok#1538 . page 23"
+我的sourceClass是基于lombok的@superBuilder注解。而这两个类在同一个module中。
+所以就把  builder = @Builder(disableBuilder = true) 掉了。
+然后在把idea的缓存全部删除，可以了。所以问题就是：
+a、eclipse和idea使用的mapstrucet的plugin都不同。但必须要以mvn clean package为主
+b、idea的缓存很严重，很多时候都不知道它干了些什么
+c、尽量使用mapstruct的1.3.1 + Lombok 1.18.16的版本，最高版本在跟lombok一起配合使用是有问题
+d、两个ide还是有必要的
