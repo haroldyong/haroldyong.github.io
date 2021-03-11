@@ -23,6 +23,9 @@ a、maven update
 b、clean cache & restart
 c、mvn clean install
 d、build
+e、terminal: maven clean package 看是否ok
+f、让idea使用maven来编译 config => build => maven => runner => "delegate ide build/run
+  actions to maven"
 
 
 2. idea 打开一个项目 ，该项目中使用了  mapstruct和 lombok。但发现自动生成的mapper类无法找到属性
