@@ -40,3 +40,16 @@ a、eclipse和idea使用的mapstrucet的plugin都不同。但必须要以mvn cle
 b、idea的缓存很严重，很多时候都不知道它干了些什么
 c、尽量使用mapstruct的1.3.1 + Lombok 1.18.16的版本，最高版本在跟lombok一起配合使用是有问题
 d、两个ide还是有必要的
+
+3. 最近升级idea到2020.3版本，当build 包含mapstruct项目时报
+
+```
+/Users/Shared/data/work/whale/src_lib/pangu/src/bw-message/message-core/src/main/java/com/bluewhale/message/core/converter/CoreBizBeanMapper.java:67:8
+java: Internal error in the mapping processor: java.lang.NullPointerException   at org.mapstruct.ap.internal.processor.DefaultVersionInformation.createManifestUrl(DefaultVersionInformation.java:182)      at org.mapstruct.ap.internal.processor.DefaultVersionInformation.openManifest(DefaultVersionInformation.java:153)   at org.mapstruct.ap.internal.processor.DefaultVersionInformation.getLibraryName(DefaultVersionInformation.java:129)     at org.mapstruct.ap.internal.processor.DefaultVersionInformation.getCompiler(DefaultVersionInformation.java:122)    at
+
+```
+
+这种错误，后来添加 -Djps.track.ap.dependencies=false =>
+Preferences | Build, Execution, Deployment | Compiler , 在dialog上面 build process vm options
+
+[id]: https://stackoverflow.com/questions/65112406/intellij-idea-mapstruct-java-internal-error-in-the-mapping-processor-java-lang "解决方法"
