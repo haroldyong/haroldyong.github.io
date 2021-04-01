@@ -195,3 +195,46 @@ https://stackoverflow.com/questions/62647625/not-able-to-run-eclipse-on-macos-bi
 一般应用分 web  / server  /manager - adapter || dao
 
 我们抛出异常建议在server中，下层一定要尽量捕捉到所有的异常，保证上层调用有值
+
+
+
+## 5.MAC系统防火墙使用
+
+有些时候我们需要模拟中间件挂掉的场景，这个时候需要让web服务器与中间件(redis mysql )断开
+这个时候可以使用mac 的pf
+
+/etc/pf.conf
+
+```
+scrub-anchor "com.apple/*"
+nat-anchor "com.apple/*"
+nat-anchor "custom"
+rdr-anchor "com.apple/*"
+rdr-anchor "custom"
+dummynet-anchor "com.apple/*"
+anchor "com.apple/*"
+anchor "custom"
+load anchor "com.apple" from "/etc/pf.anchors/com.apple"
+load anchor "custom" from "/etc/pf.anchors/custom"
+
+```
+
+然后建立文件/etc/pf.anchors/custom
+
+```
+table <blockedips> persist file "/Users/Shared/data/server/config/black_ip_lists"
+block in log proto {tcp,udp} from <blockedips> to any
+
+```
+然后在文件/Users/Shared/data/server/config/black_ip_lists 中填写需要切断的ip地址
+
+使用如下命令
+
+```
+清除所有已经建立的规则，并重新读取配置文件
+pfctl -F all -f /etc/pf.conf
+
+```
+
+参考：https://blog.csdn.net/shuishen49/article/details/77587527
+https://blog.csdn.net/huithe/article/details/7323146
