@@ -13,6 +13,9 @@
       <p><b>
       <a href="./spring-boot-rocketmq.html">spring boot with rocketmq</a>
       </b></p>
+      <p><b>
+      <a href="mailto haroldyong@gmail.com">hide article </a>
+      </b></p>
     </td>
   </tr>
 </table>
