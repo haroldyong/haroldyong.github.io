@@ -240,5 +240,21 @@ pfctl -F all -f /etc/pf.conf
 https://blog.csdn.net/huithe/article/details/7323146
 
 
+## 6.vpn搭建
+
 vpn搭建
 https://github.com/hwdsl2/docker-ipsec-vpn-server
+
+
+## 7.在mac 11.1根目录下建软链
+
+修改这个文件
+sudo vim /etc/synthetic.conf
+
+添加你需要软链的目录 add :
+
+data	/xxx/data
+
+https://blog.csdn.net/chinamen1/article/details/109760125
+
+重启ok
