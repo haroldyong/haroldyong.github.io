@@ -258,3 +258,23 @@ data	/xxx/data
 https://blog.csdn.net/chinamen1/article/details/109760125
 
 重启ok
+
+
+## 8. mac自启动服务配置
+
+如果你使用Macports等包管理器安装时，会自动帮你写入一个plist文件到/Library/LaunchDaemons/xxxxxx.plist，随后执行sudo port load redis类似这样的命令即可启动，并开机自动启动。
+在Mac里有一个命令行工具叫做：launchctl，可以用来控制服务的自动启动或者关闭。一般的语法是
+sudo launchctl load /path/to/service.plistsudo launchctl unload /path/to/service.plist
+一般plist文件放在这三个地方：
+
+/Library/LaunchDaemons/
+/Library/LaunchAgents/
+~/Library/LaunchAgents/
+具体plist文件的写法可以自行参考已有的文件。在安装Redis、MongoDB等开发工具时推荐使用Macports，以便日后的维护管理。Brew这个我个人不是很推荐。
+
+你可以写一个plist文件放到~/Library/Launch Agents/下面，文件里描述你的程序路径和启动参数，那么这个用户登录时就会启动这个程序了，而且是杀不了的哦
+
+被杀了之后会自动重新启动
+如果需要把它停止的话，运行一下命令
+launchctl unload ~/Library/Launch Agents/com.your company.porduct
+如果放到/Library/Launch Agents/下面的话，就是一开机就启动哦～
