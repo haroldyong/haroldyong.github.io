@@ -53,3 +53,47 @@ java: Internal error in the mapping processor: java.lang.NullPointerException   
 Preferences | Build, Execution, Deployment | Compiler , 在dialog上面 build process vm options
 
 [id]: https://stackoverflow.com/questions/65112406/intellij-idea-mapstruct-java-internal-error-in-the-mapping-processor-java-lang "解决方法"
+
+
+4. 使用已经项目创建maven脚手架时，碰到的问题，记录一下。
+
+步骤1: 确保项目的根pom.xml 有下面信息
+```
+<build>
+        <finalName>zy-cloud</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+```
+
+步骤2: 使用在项目的根pom下使用命令 mvn archetype:create-from-project
+
+这时会出现 " Invoker process ended with result different than 0! " 类似这样的错误
+
+其实是因为有些maven插件是使用默认的配置 {user}/.m2/settings.xml ；如果当前目录不存在这个配置
+则会出错
