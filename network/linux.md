@@ -52,6 +52,29 @@ WantedBy=multi-user.target
 
 ```
 
+nginx的安装配置在路径 /etc/systemd/system/nginx.service
+
+```
+[Unit]
+Description=nginx - high performance web server
+Documentation=http://nginx.org/en/docs/
+After=network.target remote-fs.target nss-lookup.target
+[Service]
+Type=forking
+PIDFile=/usr/local/nginx/logs/nginx.pid
+ExecStartPre=/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf
+ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
+
+```
+然后使用systemctl start nginx.service 启动
+systemctl enable nginx.service 加添自启动里面
+
+
 3. 阿里云ecs中文问题
 
 阿里云ecs默认是支持bash 中文显示，比如安装yum 时错误，会有中文提示，但在 显示中文的文件时是有乱码，
