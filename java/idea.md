@@ -97,3 +97,18 @@ Preferences | Build, Execution, Deployment | Compiler , 在dialog上面 build pr
 
 其实是因为有些maven插件是使用默认的配置 {user}/.m2/settings.xml ；如果当前目录不存在这个配置
 则会出错
+
+5. 使用阿里迁移私服jar到公共仓库的工具。
+https://help.aliyun.com/document_detail/75170.html?spm=5176.10695662.1996646101.searchclickresult.5c96731bYubpvZ
+
+
+ java -jar /Users/harold/Downloads/migrate-local-repo-tool.jar -cd "/Users/harold/resp/" -t "http://maven.hzlinks.net/repository/3rd-party/" -u admin -p hzsun@310012
+
+ 注意这个 /Users/harold/resp/ 这个目录是整个仓库的根目录
+
+ 6. 改造原始jar文件
+
+ 先使用rar之类的解压出目录，添加需要的类
+
+ 然后再变为jar, 命令如下:
+ jar cvfm mybatis-plus-generator-3.4.3.3.jar ./mybatis-plus-generator-3.4.3.3/META-INF/MANIFEST.MF -C mybatis-plus-generator-3.4.3.3/ .
