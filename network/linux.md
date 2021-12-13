@@ -87,3 +87,22 @@ export LC_ALL=zh_CN.UTF-8
 ```
 
 可以在/etc/profile 文件最后添加上面两句话，永久性解决问题
+
+
+systemctl daemon-reload
+
+4. linux （centos7）同步系统时间
+
+````
+
+yum install -y ntpdate
+
+rm -fr /etc/localtime
+
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+ntpdate -u ntp.api.bz
+
+hwclock -w
+
+````
