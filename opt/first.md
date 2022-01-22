@@ -45,3 +45,5 @@ Bob -> Bob : message 4
 
 <a href="https://raw.githubusercontent.com/haroldyong/haroldyong.github.io/3b2e55e330d7a45504fb5c603d97fb9c0f33773d/opt/plantuml.png">
 plantuml.png</a>
+
+<img src="https://raw.githubusercontent.com/haroldyong/haroldyong.github.io/3b2e55e330d7a45504fb5c603d97fb9c0f33773d/opt/plantuml.png" /> 
