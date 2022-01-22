@@ -43,4 +43,5 @@ Bob -> Bob : message 4
 ```
 使用plantuml的预览功能就可以查看，如何切换，使用vsc的快捷方式 `Ctrl + Shift + P `调出主命令框，输入 PlantUml，调用preview相关命令
 
-<a href="./plant.png">
+<a href="https://raw.githubusercontent.com/haroldyong/haroldyong.github.io/3b2e55e330d7a45504fb5c603d97fb9c0f33773d/opt/plantuml.png">
+plantuml.png</a>
