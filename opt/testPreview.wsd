@@ -1,0 +1,12 @@
+@startuml
+title new page test
+
+Alice -> Bob : message 1
+
+Bob -> Bob : message 2
+
+Alice -> Bob : message 3
+
+Bob -> Bob : message 4
+
+@enduml
