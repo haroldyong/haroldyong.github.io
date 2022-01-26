@@ -5,7 +5,7 @@
   <tr>
     <td width="100%">
       <p><b>
-      <a href="./first.html">1. first</a>
+      <a href="./first.html">1. canal数据同步</a>
       </b></p>
       <p><b>
      <a href="./second.html">2. second</a>

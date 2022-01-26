@@ -106,3 +106,33 @@ ntpdate -u ntp.api.bz
 hwclock -w
 
 ````
+
+
+5. centos7 在命令提示符中显示IP地址和全路径
+
+````
+vi /etc/profile.d/sh.local
+
+export ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"?`
+export path=`pwd`
+export PS1="[\u@\h:$ip \t $path]$ "
+
+````
+
+参考
+
+```
+\u ：当前用户的账号名称
+\h ：短主机名称
+\w ：当前目录地址
+\H ：全主机名称
+\d ：显示日期
+\T ：显示时间为12小时格式 如：HH:MM:SS 假设下午15点30分20秒：03:30:20
+\t ：显示时间为24小时格式 如：HH:MM:SS 正常格式15点30分20秒：15:30:20
+\A ：显示时间为24小时格式 如：HH:MM
+\$ ：如果是root显示：# 普通用户显示：$
+
+```
+相关参考文档:
+
+<a href="https://www.cnblogs.com/poloyy/p/12212868.html">https://www.cnblogs.com/poloyy/p/12212868.html</a>
