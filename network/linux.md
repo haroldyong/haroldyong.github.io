@@ -114,8 +114,8 @@ hwclock -w
 vi /etc/profile.d/sh.local
 
 export ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"?`
-export path=`pwd`
-export PS1="[\u@\h:$ip \t $path]$ "
+export PS1="[\u@\h:$ip \t \w ]\$ "
+
 
 ````
 
@@ -136,3 +136,15 @@ export PS1="[\u@\h:$ip \t $path]$ "
 相关参考文档:
 
 <a href="https://www.cnblogs.com/poloyy/p/12212868.html">https://www.cnblogs.com/poloyy/p/12212868.html</a>
+
+
+6. windows下的sh脚本到linux上跑时会出现
+
+`````
+在Windows下编写好sh文件后，在Linux下运行会报错：bash: $’\r’: command not found
+
+`````
+
+这是因为Windows系统的文件换行使用的是\r\n，而Unix系统是\n
+
+使用vim打开文件，然后使用命令:set ff=unix，保存文件
