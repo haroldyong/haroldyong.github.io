@@ -112,3 +112,8 @@ https://help.aliyun.com/document_detail/75170.html?spm=5176.10695662.1996646101.
 
  然后再变为jar, 命令如下:
  jar cvfm mybatis-plus-generator-3.4.3.3.jar ./mybatis-plus-generator-3.4.3.3/META-INF/MANIFEST.MF -C mybatis-plus-generator-3.4.3.3/ .
+
+ 7. 在idea中加载skywalking
+在 Run/Debug configurations\Spring Boot\StartJava\configuration\VM Options 下添加如下代码
+
+ javaagent:F:\work\git_lab\devops\docker_image\openjdk8u302_skyw\skywalking-agent\skywalking-agent.jar -DSW_AGENT_NAME=zy-cas-local -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=172.16.34.7:30901
