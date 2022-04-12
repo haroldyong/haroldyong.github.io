@@ -117,3 +117,46 @@ https://help.aliyun.com/document_detail/75170.html?spm=5176.10695662.1996646101.
 在 Run/Debug configurations\Spring Boot\StartJava\configuration\VM Options 下添加如下代码
 
  javaagent:F:\work\git_lab\devops\docker_image\openjdk8u302_skyw\skywalking-agent\skywalking-agent.jar -DSW_AGENT_NAME=zy-cas-local -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=172.16.34.7:30901
+
+ 8. IDEA启动时会出现如下错误
+
+ ```
+ Internal error. Please refer to https://jb.gg/ide/critical-startup-errors
+
+ java.util.concurrent.CompletionException: java.net.BindException: Address already in use: bind
+     at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:314)
+     at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:319)
+     at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1702)
+
+
+
+
+-----
+Your JRE: 11.0.10+8-b1145.96 amd64 (JetBrains s.r.o.)
+D:\Program Files\JetBrains\IntelliJ IDEA 2020.3.4\jbr
+
+ ```
+
+ 网上发现这篇文章 https://blog.csdn.net/zixiao_love/article/details/111667919
+跟我的原因是一模一样的。因为我也是重启后，再启动idea就ok的。
+
+复制一下解决方法：
+
+
+java.net.BindException：地址已在使用中： 也就是idea启动时需要占用一些端口，但是已经被其它打开的软件占用了。
+
+IDE正在本地主机上启动服务器，它将尝试在6942和6991之间的第一个可用端口上进行绑定，如果IDE无法在该范围内的任何端口上进行绑定，则会引发此异常。
+
+一般来说，这种问题重启电脑或者重置网络都不错的解决方法，如果不想使用以上方法可以自己试试找到你电脑中占用了该端口的软件停止它，然后启动IDEA
+
+不过这通常是由Windows NAT驱动程序（winnat）引起的，停止并重新启动该服务可以解决问题。
+
+CMD使用管理员启动：
+
+输入：net stop winnat
+
+然后启动IDEA，启动成功后，CMD里继续运行下面的命令。
+
+输入：net start winnat
+
+ok，问题解决
