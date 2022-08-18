@@ -59,3 +59,16 @@ Relying upon circular references is discouraged and they are prohibited by defau
 但从Alibaba的Dubbo设计初心来分析，dubbo当初是定义为rpc调用框架，所以它的优势在于微服务之间的短平快的调用，所以其实它跟Spring cloud的 feign的思路是不一致的，
 一个走rpc调用，一个走http 调用；一个追求高性能&大并发，一个追求标准化&无状态化。而SCA这个项目就是基于融入spring社区的目的而通过改造dubbo去实现这些规范。本身它跟进Dubbo项目组就是两拨人，后期发现改造的过程中有很多问题，所以就从SCA中把SCD剔除出来，所以从这个角度分析，我认为SCA不是阿里的主要方向。
 那么我们怎么追随阿里的技术步骤了？我的判断是 dubbo + spring boot 这种搭积木的方式。可以通过各个社区来整合资源，在spring cloud 的指导思想下，通过使用各个组件自我组装，自我发现，当然必然包括自我踩坑去实现业务场景。
+
+3. 将 logback.xml 文件放到 nacos上，dataId必须是xml文件，必须以xml文件结尾
+
+
+```
+logging:
+  config: http://${spring.cloud.nacos.server-addr}/nacos/v1/cs/configs?username=${spring.cloud.nacos.username}&password=${spring.cloud.nacos.password}&group=${spring.cloud.nacos.config.group}&tenant=${spring.cloud.nacos.config.namespace}&dataId=logback-config.xml
+  level:
+    com.alibaba.nacos: warn
+
+```
+
+logback-config.xml 必须是url的最后
