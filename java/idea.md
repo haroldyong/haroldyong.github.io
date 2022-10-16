@@ -1,5 +1,5 @@
 ### practise in idea
- 
+
 
 ## 1. 使用idea
 
@@ -160,3 +160,9 @@ CMD使用管理员启动：
 输入：net start winnat
 
 ok，问题解决
+
+9. idea 多加载jar包
+
+  之前碰到多加载了 spring-boot-seate 的jar包，但是已经从 pom.xml文件中去除掉了。而左侧 external libraries中仍然存在，所以需要通过F4 ， project setting 去除掉，重新maven 加载一下就ok了。
+
+  spring boot 启动时，无法加载 logback的原因时logback 版本应为 1.2.x
