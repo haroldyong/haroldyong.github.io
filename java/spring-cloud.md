@@ -80,4 +80,4 @@ sentinel官方有一个 dashboard的应用程序可以理解为sentinel的server
 所有的sentinel client应用会在本地日志中记录资源方位的秒级数据。
 sentinel client 会本地启动一个netty api service，sentinel dashboard server会通过定时调用http get请求从client中拿 metric数据
 
-sentinel 上生产环境，还是要好好研究下
+sentinel 上生产环境，还是要好好研究下。
