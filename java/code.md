@@ -28,3 +28,9 @@ lastShopRedPacket = NumberUtils.max((
                             (shopRedPacketRatio.divide(apartRate,6, BigDecimal.ROUND_HALF_UP)).multiply(new BigDecimal(lastRedPacket)).setScale(4,RoundingMode.UP).longValue()),
                           0L);
 ```
+
+2. junit多线程代码
+
+junit的@Test方法中运行多线程程序时，test方法运行在主线程中，外层函数执行完test等操作后执行System.exit来退出虚拟机，这个时候thread1和thread2可能还没执行完，就被销毁了.
+
+这个是最根本的原因，解决方案很简单。使用 Thread.join就ok了。
